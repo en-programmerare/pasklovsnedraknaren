@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Påsklovsnedräknaren</title>
+<style>
+p {
+  text-align: center;
+  font-size: 10vw;
+  font-style: italic;
+  color: limegreen;
+  margin-top: 0px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 3px 2px white;
+}
+body {
+  background-image: url('https://aktivitetshusetalmhult.se/wp-content/uploads/2018/03/P%C3%A5skris.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 65vh;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.0);
+  z-index: 2;
+}
+.manga {
+   animation-name: glid;
+   animation-duration: 8s;
+   opacity: 0;
+   position: fixed;
+   transform: scale(1.5, 1.5);
+}
+.sol {
+   animation-name: snurra;
+   animation-duration: 4s;
+   animation-iteration-count: infinite;
+   opacity: 1;
+   position: fixed;
+   animation-timing-function: linear;
+   top: -30vh;
+   left: 50vw;
+}
+#overlay2 {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 30vh;
+  left: 25vw;
+  right: 25vw;
+  bottom: 25vh;
+  background-color: rgba(0,0,0,0.0);
+  z-index: 1;
+}
+@keyframes glid {
+ from {
+  left: -50vw;
+  opacity: 1;
+ }
+ 99% {
+  left: 250vw;
+  opacity: 1;
+ }
+ to {
+  opacity: 0;
+  left: 250vw;
+ }
+}
+@keyframes snurra {
+    from {
+        transform: rotateZ(0deg) scale(0.5, 0.5);
+    }
+    50% {
+        transform: rotateZ(180deg) scale(0.55, 0.55);
+    }
+    100% {
+        transform: rotateZ(360deg) scale(0.5, 0.5);
+    }
+}
+</style>
+</head>
+<body onload="ok()">
+
+<p id="demo"></p>
+<div id="overlay">
+    <img src="http://www.birgitmummu.fi/BirgitMummu/Animaatiot/Paasiainen/004.gif" class="manga">
+    </img>
+</div>
+<div id="overlay2">
+    <img src="https://birgitmummu.vikki.fi/Svenska/Pasken/Pasksidor/Text8.gif">
+    </img>
+</div>
+<script>
+var schemalagg;
+var mellan = 10000;
+var klickat = false;
+// Nedräkningsdatum, och starta nedräknare. Körs när allt är klart
+function ok() {
+    document.getElementById("demo").innerHTML = "Snart är det påsklov!";
+    var countDownDate = new Date("Apr 03, 2020 15:20:00").getTime();
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+        // Get todays date and time
+        var now = new Date().getTime();
+    
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+    
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+        // Output the result in an element with id="demo"
+        document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
+        document.title = document.getElementById("demo").innerHTML;
+    
+        // If the count down is over, write some text 
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("demo").innerHTML = "Nu är det påsklov!";
+            document.title = "Nu är det påsklov!";
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("overlay2").style.display = "block";
+            kaos();
+        }
+    }, 1000);
+}
+</script>
+
+</body>
+</html>
